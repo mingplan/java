@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Map;
 import java.util.Arrays;
 import static java.util.stream.Collectors.toList;
 
@@ -14,6 +15,8 @@ import java.util.stream.Stream;
 import java.util.function.IntSupplier;
 
 import static java.util.Comparator.comparing;
+
+import java.util.stream.Collectors;
 
 public class Lambda {
     public static class Trader{     
@@ -57,6 +60,12 @@ public class Lambda {
             "year: " + this.year + ", " +
             "value: " + this.value + "}";
         }
+    }
+
+    public static boolean isPrime(int candiate) {
+        int root = (int) Math.sqrt((double)candiate);
+        return IntStream.rangeClosed(2, root)
+        .noneMatch(i -> candiate % i == 0);
     }
 
     public static void main(String[] args) {
@@ -258,6 +267,9 @@ public class Lambda {
         System.out.println("fib:");
         IntStream fff = IntStream.generate(fib).limit(30);
         fff.forEach(System.out::println);
+
+        Map<Boolean, List<Integer>> cc =  IntStream.rangeClosed(2, 100).boxed()
+        .collect(Collectors.partitioningBy(i -> isPrime(i)));
 
     }
 }
